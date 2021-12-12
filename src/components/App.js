@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import hamlet from '../sources/hamlet';
 import job from '../sources/job';
 import jabberwocky from '../sources/jabberwocky';
@@ -12,8 +12,11 @@ const App = () => {
   const [output,setOutput] = useState('');
   const [buttonText,setButtonText] = useState('Generate');
 
+  const inputTextArea = useRef();
+
   useEffect(() => { 
     setMarkovModel(initialize(input)); // initialize the markov model 
+    inputTextArea.current.scrollTop = 0; //scroll back to top of the text area
   },[input])
 
   const switchInputSource = (value) => {
@@ -42,7 +45,7 @@ const App = () => {
           <option value="jabberwocky">Jabberwocky</option>
         </select>
         <p>Or enter in your own text:</p>
-        <textarea value={input} onChange={event => setInput(event.target.value)}></textarea>
+        <textarea ref={inputTextArea} value={input} onChange={event => setInput(event.target.value)}></textarea>
         <button onClick={generate}>{buttonText} &rarr;</button>
       </div>
       <div className="right">{output}</div>
