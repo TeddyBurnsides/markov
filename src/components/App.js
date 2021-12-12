@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
-import hamlet from './hamlet';
-import job from './job';
-import jabberwocky from './jabberwocky';
-import {initialize,buildSentence} from './logic';
+import hamlet from '../sources/hamlet';
+import job from '../sources/job';
+import jabberwocky from '../sources/jabberwocky';
+import {initialize,buildSentence} from '../utils/markovLogic';
 
 const App = () => {
 

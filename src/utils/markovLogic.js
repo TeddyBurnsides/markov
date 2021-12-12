@@ -6,11 +6,10 @@ const buildSentence = (markov,maxValue,input) => {
 	input = input.split('. ');
 
 	let startWord = getRandomWord(input)
-
-	//let sentenceDIV=document.getElementById('content') // define sentence element
+	
 	let sentence;
-	//sentenceDIV.innerHTML = makeTitleCase(startWord) + ' '; // print first word with an uppercase letter
-	sentence = makeTitleCase(startWord) + ' ';
+
+	sentence = makeTitleCase(startWord) + ' '; // add first word with an uppercase letter
 	
 	let nextWord,counter,currentIndex;
 	counter=0 // start counter
@@ -19,20 +18,17 @@ const buildSentence = (markov,maxValue,input) => {
 		if (currentIndex !== -1) { // found value
 			nextWord = getNextWord(markov,currentIndex); // get the most probable next word
 			startWord=nextWord; // allows loop to look for the next word in the sentence
-			//sentenceDIV.append(nextWord + ' '); // print to screen
 			sentence = sentence + nextWord + ' ';
 		}
 		counter++; // counter used to stop this do/while loop before it gets too long
 		if (currentIndex === -1 && counter <= maxValue) { // start over if we end a sentence
 			startWord=getRandomWord(input);
-			//sentenceDIV.innerHTML = sentenceDIV.innerHTML.slice(0,-1); // remove last space
-			sentence = sentence.slice(0,-1);
-			//sentenceDIV.append('. ' + makeTitleCase(startWord) + ' '); // add start word
-			sentence = sentence + '. ' + makeTitleCase(startWord) + ' ';
+			sentence = sentence.slice(0,-1); // remove last space
+			sentence = sentence + '. ' + makeTitleCase(startWord) + ' '; // add start word
 		}
 	} while (counter < maxValue); // hard coded infinite loop breaker
-	//sentenceDIV.innerHTML = sentenceDIV.innerHTML.slice(0,-1) + '.'; // remove last space + add a periods
-	sentence = sentence.slice(0,-1) + '.';
+	
+	sentence = sentence.slice(0,-1) + '.'; // remove last space + add a periods
 
 	return sentence;
 }
